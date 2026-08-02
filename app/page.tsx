@@ -445,11 +445,36 @@ export default function Home() {
                 <h3>Describe la situación en cinco pasos</h3>
               </div>
               <ol>
-                <li><strong>Actor:</strong> quién intenta cambiar una conducta, decisión o agenda.</li>
-                <li><strong>Palanca:</strong> qué regla, recurso, dato, secuencia, salida o alianza controla.</li>
-                <li><strong>Dependencia:</strong> qué perdería la otra parte si se negara.</li>
-                <li><strong>Legitimidad:</strong> qué razón vuelve aceptable o inevitable la intervención.</li>
-                <li><strong>Contrapeso:</strong> quién puede revisar, detener, corregir o reparar.</li>
+                <li>
+                  <span className="quick-diagnostic-copy">
+                    <strong>Actor</strong>
+                    <span>Quién intenta cambiar una conducta, decisión o agenda.</span>
+                  </span>
+                </li>
+                <li>
+                  <span className="quick-diagnostic-copy">
+                    <strong>Palanca</strong>
+                    <span>Qué regla, recurso, dato, secuencia, salida o alianza controla.</span>
+                  </span>
+                </li>
+                <li>
+                  <span className="quick-diagnostic-copy">
+                    <strong>Dependencia</strong>
+                    <span>Qué perdería la otra parte si se negara.</span>
+                  </span>
+                </li>
+                <li>
+                  <span className="quick-diagnostic-copy">
+                    <strong>Legitimidad</strong>
+                    <span>Qué razón vuelve aceptable o inevitable la intervención.</span>
+                  </span>
+                </li>
+                <li>
+                  <span className="quick-diagnostic-copy">
+                    <strong>Contrapeso</strong>
+                    <span>Quién puede revisar, detener, corregir o reparar.</span>
+                  </span>
+                </li>
               </ol>
             </div>
 

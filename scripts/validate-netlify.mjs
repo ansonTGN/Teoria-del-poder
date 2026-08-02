@@ -51,10 +51,12 @@ const checks = [
   [!css.includes("@import \"tailwindcss\""), "La hoja estática conserva la importación de Tailwind."],
   [(html.match(/<img\b/g) || []).length >= 6, "No se generaron todas las imágenes editoriales."],
   [(html.match(/<details class="depth-disclosure"/g) || []).length >= 10, "Falta la lectura progresiva de los apartados densos."],
+  [(html.match(/class="quick-diagnostic-copy"/g) || []).length === 5, "El diagnóstico de bolsillo no agrupa correctamente sus cinco explicaciones."],
   [(html.match(/<img\b[^>]*\balt=/g) || []).length === (html.match(/<img\b/g) || []).length, "Hay imágenes sin texto alternativo."],
   [missingTargets.length === 0, `Hay enlaces internos sin destino: ${missingTargets.join(", ")}`],
   [duplicateIds.length === 0, `Hay identificadores duplicados: ${duplicateIds.join(", ")}`],
   [[1120, 860, 560, 380].every((width) => css.includes(`@media (max-width: ${width}px)`)), "Faltan puntos de ruptura para ordenador, tableta o móvil."],
+  [css.includes("grid-template-columns: 32px minmax(0, 1fr)"), "El diagnóstico de bolsillo puede volver a comprimir el texto en la columna numérica."],
   [css.includes("content: attr(data-label)"), "Las tablas extensas no se transforman en tarjetas legibles en móvil."],
 ];
 
