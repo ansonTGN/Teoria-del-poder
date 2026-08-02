@@ -4,7 +4,7 @@ Autor y editor: **Angel A. Urbina · 2026**
 
 Sitio editorial en español sobre poder, influencia y control social. Compara a Maquiavelo, Sun Tzu y Han Feizi con tradiciones políticas de distintas culturas, sociología contemporánea, psicología social e inteligencia artificial.
 
-La edición 2.2 reorganiza el manual para priorizar la comprensión sin eliminar profundidad. Presenta primero una definición operativa, un modelo de seis palancas y tres rutas de lectura; después ofrece aplicación práctica y deja la teoría, la evidencia, los casos, el glosario y las fuentes en apartados de profundización desplegables.
+La edición 2.3 prioriza comprensión y legibilidad sin eliminar profundidad. Presenta primero una definición operativa, un modelo visual de seis palancas y tres rutas de lectura; transforma las tablas en tarjetas en pantallas pequeñas, establece una escala tipográfica accesible y reserva las explicaciones extensas para apartados desplegables.
 
 El contenido incorpora un atlas visual elaborado a partir de *The Illuminated Board* y *The Power Blueprint*, además de una revisión crítica del *Manual Práctico del Poder*. Integra teoría de juegos, BATNA, diseño de mecanismos, señales, compromisos, coaliciones y juegos repetidos; amplía la psicología del poder y añade protocolos responsables para organizaciones, negociación y crisis.
 
@@ -72,6 +72,8 @@ npm run smoke:netlify
 ## Accesibilidad y privacidad
 
 - Navegación semántica, jerarquía de encabezados y textos alternativos.
+- Escala tipográfica legible, líneas de lectura acotadas y explicaciones extensas desplegables.
+- Tablas convertidas en tarjetas rotuladas en tabletas y móviles.
 - Diseño adaptable, impresión limpia y respeto a `prefers-reduced-motion`.
 - Sin analítica, cookies, formularios ni recursos de terceros.
 - Política de seguridad de contenido y cabeceras defensivas configuradas en Netlify.

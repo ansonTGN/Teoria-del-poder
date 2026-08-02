@@ -24,6 +24,7 @@ type Thinker = {
   name: string;
   dates: string;
   tradition: string;
+  summary: string;
   thesis: string;
   concepts: string[];
   strength: string;
@@ -36,6 +37,7 @@ const thinkers: Thinker[] = [
     name: "Nicolás Maquiavelo",
     dates: "1469-1527",
     tradition: "Florencia · Realismo político",
+    summary: "Leer fuerzas reales, reputación, oportunidad e instituciones antes de decidir.",
     thesis:
       "El poder se conserva leyendo la situación efectiva, combinando capacidad, oportunidad, reputación e instituciones. El príncipe no agota su pensamiento: los Discursos muestran que el conflicto ordenado y la participación también pueden sostener la libertad republicana.",
     concepts: ["virtù", "fortuna", "necesidad", "apariencia", "instituciones"],
@@ -49,6 +51,7 @@ const thinkers: Thinker[] = [
     name: "Sun Tzu",
     dates: "Tradición textual, siglos V-III a. C.",
     tradition: "China · Estrategia militar",
+    summary: "Crear ventaja mediante información, terreno, ritmo y adaptación antes del choque.",
     thesis:
       "La mejor estrategia reduce el coste del conflicto: información, preparación, terreno, ritmo y adaptación permiten deshacer la resistencia antes del choque. Su contexto es la guerra; trasladarlo a la convivencia exige límites éticos estrictos.",
     concepts: ["información", "engaño", "shi", "vacío y lleno", "adaptación"],
@@ -62,6 +65,7 @@ const thinkers: Thinker[] = [
     name: "Han Feizi",
     dates: "c. 280-233 a. C.",
     tradition: "China · Fajia o tradición legalista",
+    summary: "Estabilizar la autoridad mediante reglas, cargo y verificación del desempeño.",
     thesis:
       "La autoridad estable no debe depender de la virtud excepcional del gobernante. Se apoya en estándares públicos, técnicas administrativas y el poder del cargo; controla a los agentes comparando lo prometido con lo realizado.",
     concepts: ["fa", "shu", "shi", "xing-ming", "premio y sanción"],
@@ -76,6 +80,7 @@ const laws = [
   {
     number: "01",
     title: "La percepción condiciona lo que cuenta como verdad",
+    short: "Antes de decidir sobre los hechos, las personas interpretan señales, relatos y marcos.",
     principle:
       "Maquiavelo analiza la reputación; Sun Tzu, la apariencia estratégica; Han Feizi, el ocultamiento de preferencias. Antes de decidir, las personas interpretan señales, relatos y marcos.",
     correction:
@@ -86,6 +91,7 @@ const laws = [
   {
     number: "02",
     title: "La información es una fuente de poder",
+    short: "Conocer capacidades, límites y preferencias permite anticipar; ocultarlos reduce la respuesta ajena.",
     principle:
       "Quien conoce capacidades, restricciones y preferencias puede anticipar decisiones. La asimetría informativa amplía el margen de maniobra y reduce el del otro.",
     correction:
@@ -96,6 +102,7 @@ const laws = [
   {
     number: "03",
     title: "La estrategia busca el punto de menor resistencia",
+    short: "La ventaja suele surgir al cambiar de terreno, secuencia o regla, no al aumentar el choque.",
     principle:
       "Sun Tzu recomienda evitar la fortaleza y actuar donde la configuración es favorable. En política, el terreno puede ser jurídico, simbólico, económico u organizativo.",
     correction:
@@ -106,6 +113,7 @@ const laws = [
   {
     number: "04",
     title: "Premios y sanciones moldean conducta",
+    short: "Beneficios, pérdidas y normas sociales cambian conductas, pero también producen adaptación y resistencia.",
     principle:
       "Han Feizi habla de los dos mangos; Maquiavelo observa esperanza y temor. La psicología moderna confirma que los incentivos, las pérdidas y las normas sociales influyen.",
     correction:
@@ -116,6 +124,7 @@ const laws = [
   {
     number: "05",
     title: "La estructura suele pesar más que el carisma",
+    short: "Cargos, reglas, recursos, agenda e infraestructura hacen que el poder sea repetible.",
     principle:
       "El cargo, las reglas, el acceso a recursos, la agenda y la infraestructura hacen repetible el poder. Sun Tzu prepara el terreno; Han Feizi diseña una administración que no dependa del héroe.",
     correction:
@@ -172,6 +181,8 @@ const leverQuestions = [
   "¿Quién puede rechazar el acuerdo sin sufrir un daño desproporcionado?",
   "¿Quién puede coordinar, legitimar, bloquear o retirar cooperación?",
 ];
+
+const leverSymbols = ["▦", "±", "◉", "→", "↗", "◎"];
 
 const readingRoutes = [
   {
@@ -283,7 +294,7 @@ export default function Home() {
             <a className="primary-action" href="#modelo">Entenderlo en 10 minutos</a>
             <a className="secondary-action" href="#diagnostico">Ir al manual práctico</a>
           </div>
-          <p className="edition">Edición 2.2 · Angel A. Urbina · 2026</p>
+          <p className="edition">Edición 2.3 · Angel A. Urbina · 2026</p>
         </div>
         <figure className="hero-visual">
           <div className="hero-visual-frame">
@@ -311,17 +322,21 @@ export default function Home() {
               tecnología, la reputación, la agenda y la dependencia.
             </p>
           </div>
-          <div className="prose-large">
-            <p>
-              Para comprender una situación no basta con preguntar «¿quién manda?». Hay que observar
-              quién diseña las opciones, reparte costes, posee información, fija el orden de las
-              decisiones, puede retirarse y consigue que su interpretación parezca legítima.
-            </p>
-            <p>
-              Toda convivencia orienta conductas mediante leyes, normas y expectativas. Eso no equivale
-              automáticamente a abuso. La frontera aparece cuando faltan límites, razones públicas,
-              participación, posibilidad de decir no, revisión independiente y reparación.
-            </p>
+          <div className="orientation-facts">
+            <article>
+              <span>01</span>
+              <div>
+                <h3>Dónde mirar</h3>
+                <p>Opciones, costes, información, orden de decisión, capacidad de salida y legitimidad.</p>
+              </div>
+            </article>
+            <article>
+              <span>02</span>
+              <div>
+                <h3>Cuándo se vuelve dominación</h3>
+                <p>Cuando faltan límites, razones públicas, participación, revisión y reparación.</p>
+              </div>
+            </article>
           </div>
         </div>
         <div className="reading-routes" aria-label="Rutas de lectura">
@@ -413,7 +428,10 @@ export default function Home() {
             <div className="core-lever-grid">
               {gameLevers.map((item, index) => (
                 <article key={item.lever}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <div className="lever-mark" aria-hidden="true">
+                    <span>{leverSymbols[index]}</span>
+                    <small>{String(index + 1).padStart(2, "0")}</small>
+                  </div>
                   <h3>{item.lever}</h3>
                   <p>{item.changes}</p>
                   <strong>{leverQuestions[index]}</strong>
@@ -479,20 +497,26 @@ export default function Home() {
                     </div>
                   </header>
                   <p className="tradition">{thinker.tradition}</p>
-                  <p>{thinker.thesis}</p>
+                  <p className="thinker-summary">{thinker.summary}</p>
                   <ul className="concept-list">
                     {thinker.concepts.map((concept) => <li key={concept}>{concept}</li>)}
                   </ul>
-                  <dl>
-                    <div>
-                      <dt>Aporta</dt>
-                      <dd>{thinker.strength}</dd>
+                  <details className="card-details">
+                    <summary>Ver idea completa y cautelas</summary>
+                    <div className="card-details-body">
+                      <p>{thinker.thesis}</p>
+                      <dl>
+                        <div>
+                          <dt>Aporta</dt>
+                          <dd>{thinker.strength}</dd>
+                        </div>
+                        <div>
+                          <dt>Exige cautela</dt>
+                          <dd>{thinker.danger}</dd>
+                        </div>
+                      </dl>
                     </div>
-                    <div>
-                      <dt>Exige cautela</dt>
-                      <dd>{thinker.danger}</dd>
-                    </div>
-                  </dl>
+                  </details>
                 </article>
               ))}
               {filteredThinkers.length === 0 && (
@@ -816,10 +840,10 @@ export default function Home() {
               </div>
               {gameLevers.map((item) => (
                 <div className="game-row" role="row" key={item.lever}>
-                  <strong>{item.lever}</strong>
-                  <span>{item.changes}</span>
-                  <span>{item.practice}</span>
-                  <span>{item.safeguard}</span>
+                  <strong data-label="Palanca">{item.lever}</strong>
+                  <span data-label="Qué cambia">{item.changes}</span>
+                  <span data-label="Cómo aparece">{item.practice}</span>
+                  <span data-label="Salvaguarda">{item.safeguard}</span>
                 </div>
               ))}
             </div>
@@ -931,11 +955,17 @@ export default function Home() {
                   <div className="law-number">{law.number}</div>
                   <div>
                     <h3>{law.title}</h3>
-                    <p>{law.principle}</p>
-                    <div className="law-details">
-                      <p><strong>Corrección crítica</strong>{law.correction}</p>
-                      <p><strong>Defensa</strong>{law.defense}</p>
-                    </div>
+                    <p className="law-summary">{law.short}</p>
+                    <details className="card-details law-expand">
+                      <summary>Ver explicación, límite y defensa</summary>
+                      <div className="card-details-body">
+                        <p>{law.principle}</p>
+                        <div className="law-details">
+                          <p><strong>Corrección crítica</strong>{law.correction}</p>
+                          <p><strong>Defensa</strong>{law.defense}</p>
+                        </div>
+                      </div>
+                    </details>
                   </div>
                 </article>
               ))}
@@ -1137,10 +1167,15 @@ export default function Home() {
                     <h4>{item.name}</h4>
                   </header>
                   <p>{item.reveals}</p>
-                  <dl>
-                    <div><dt>Vulnerabilidad</dt><dd>{item.vulnerability}</dd></div>
-                    <div><dt>Capacidad</dt><dd>{item.capacity}</dd></div>
-                  </dl>
+                  <details className="card-details compact-details">
+                    <summary>Ver vulnerabilidad y capacidad</summary>
+                    <div className="card-details-body">
+                      <dl>
+                        <div><dt>Vulnerabilidad</dt><dd>{item.vulnerability}</dd></div>
+                        <div><dt>Capacidad</dt><dd>{item.capacity}</dd></div>
+                      </dl>
+                    </div>
+                  </details>
                 </article>
               ))}
             </div>
@@ -1167,10 +1202,10 @@ export default function Home() {
               </div>
               {mediaMechanisms.map((mechanism) => (
                 <div className="media-row" role="row" key={mechanism.name}>
-                  <strong>{mechanism.name}</strong>
-                  <span>{mechanism.changes}</span>
-                  <span>{mechanism.diagnostic}</span>
-                  <span>{mechanism.safeguard}</span>
+                  <strong data-label="Mecanismo">{mechanism.name}</strong>
+                  <span data-label="Qué modifica">{mechanism.changes}</span>
+                  <span data-label="Cómo detectarlo">{mechanism.diagnostic}</span>
+                  <span data-label="Contramedida">{mechanism.safeguard}</span>
                 </div>
               ))}
             </div>
@@ -1309,10 +1344,10 @@ export default function Home() {
               </div>
               {powerSources.map((item) => (
                 <div className="power-row" role="row" key={item.source}>
-                  <strong>{item.source}</strong>
-                  <span>{item.resource}</span>
-                  <span>{item.visible}</span>
-                  <span>{item.counterweight}</span>
+                  <strong data-label="Fuente">{item.source}</strong>
+                  <span data-label="Recurso principal">{item.resource}</span>
+                  <span data-label="Manifestación">{item.visible}</span>
+                  <span data-label="Contrapeso">{item.counterweight}</span>
                 </div>
               ))}
             </div>
@@ -1361,10 +1396,15 @@ export default function Home() {
                     <span>{String(index + 1).padStart(2, "0")}</span>
                     <div><h4>{protocol.context}</h4><p>{protocol.objective}</p></div>
                   </header>
-                  <ol>
-                    {protocol.steps.map((step) => <li key={step}>{step}</li>)}
-                  </ol>
-                  <p className="protocol-guardrail"><strong>Límite</strong>{protocol.guardrail}</p>
+                  <details className="card-details protocol-details">
+                    <summary>Ver pasos y límite de actuación</summary>
+                    <div className="card-details-body">
+                      <ol>
+                        {protocol.steps.map((step) => <li key={step}>{step}</li>)}
+                      </ol>
+                      <p className="protocol-guardrail"><strong>Límite</strong>{protocol.guardrail}</p>
+                    </div>
+                  </details>
                 </article>
               ))}
             </div>

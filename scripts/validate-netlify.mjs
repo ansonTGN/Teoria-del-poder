@@ -55,7 +55,7 @@ const checks = [
   [missingTargets.length === 0, `Hay enlaces internos sin destino: ${missingTargets.join(", ")}`],
   [duplicateIds.length === 0, `Hay identificadores duplicados: ${duplicateIds.join(", ")}`],
   [[1120, 860, 560, 380].every((width) => css.includes(`@media (max-width: ${width}px)`)), "Faltan puntos de ruptura para ordenador, tableta o móvil."],
-  [css.includes("-webkit-overflow-scrolling: touch"), "Las tablas extensas no declaran desplazamiento táctil."],
+  [css.includes("content: attr(data-label)"), "Las tablas extensas no se transforman en tarjetas legibles en móvil."],
 ];
 
 const failures = checks.filter(([passes]) => !passes).map(([, message]) => message);
