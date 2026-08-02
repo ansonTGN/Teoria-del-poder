@@ -236,6 +236,7 @@ function DepthDisclosure({
 export default function Home() {
   const [query, setQuery] = useState("");
   const [progress, setProgress] = useState(0);
+  const [indexOpen, setIndexOpen] = useState(true);
 
   useEffect(() => {
     const onScroll = () => {
@@ -245,6 +246,14 @@ export default function Home() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const compactIndex = window.matchMedia("(max-width: 960px)");
+    const syncIndex = () => setIndexOpen(!compactIndex.matches);
+    syncIndex();
+    compactIndex.addEventListener("change", syncIndex);
+    return () => compactIndex.removeEventListener("change", syncIndex);
   }, []);
 
   const normalizedQuery = query.trim().toLocaleLowerCase("es");
@@ -294,7 +303,14 @@ export default function Home() {
             <a className="primary-action" href="#modelo">Entenderlo en 10 minutos</a>
             <a className="secondary-action" href="#diagnostico">Ir al manual práctico</a>
           </div>
-          <p className="edition">Edición 2.3 · Angel A. Urbina · 2026</p>
+          <div className="hero-meta">
+            <p className="edition">Edición visual 3.0</p>
+            <span>Angel A. Urbina · 2026</span>
+          </div>
+          <aside className="reflection-cue" aria-label="Pregunta de entrada">
+            <span>Pregunta de entrada</span>
+            <p>¿Cuánto de una decisión nace en nosotros y cuánto fue configurado antes de decidir?</p>
+          </aside>
         </div>
         <figure className="hero-visual">
           <div className="hero-visual-frame">
@@ -375,32 +391,47 @@ export default function Home() {
 
       <div className="manual-shell">
         <aside className="manual-index" id="indice">
-          <p>Mapa del manual</p>
-          {navGroups.map((group) => (
-            <div className="nav-group" key={group.label}>
-              <strong>{group.label}</strong>
-              {group.items.map(([id, label], index) => (
-                <a href={`#${id}`} key={id}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {label}
-                </a>
-              ))}
-            </div>
-          ))}
-          <label className="search-box">
-            <span>Buscar en los autores</span>
-            <input
-              id="author-search"
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Ej.: información"
-            />
-          </label>
-          <div className="ethics-note">
-            <strong>Criterio de uso</strong>
-            <p>Comprender para reconocer, limitar y resistir; no para explotar vulnerabilidades.</p>
+          <div className="index-heading">
+            <p>Mapa del manual</p>
+            <span>Cuatro rutas · quince capítulos</span>
           </div>
+          <details
+            className="index-disclosure"
+            open={indexOpen}
+            onToggle={(event) => setIndexOpen(event.currentTarget.open)}
+          >
+            <summary>
+              <span>Explorar capítulos</span>
+              <small>Índice completo</small>
+            </summary>
+            <div className="index-body">
+              {navGroups.map((group) => (
+                <div className="nav-group" key={group.label}>
+                  <strong>{group.label}</strong>
+                  {group.items.map(([id, label]) => (
+                    <a href={`#${id}`} key={id}>
+                      <span aria-hidden="true" />
+                      {label}
+                    </a>
+                  ))}
+                </div>
+              ))}
+              <label className="search-box">
+                <span>Buscar en los autores</span>
+                <input
+                  id="author-search"
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Ej.: información"
+                />
+              </label>
+              <div className="ethics-note">
+                <strong>Criterio de uso</strong>
+                <p>Comprender para reconocer, limitar y resistir; no para explotar vulnerabilidades.</p>
+              </div>
+            </div>
+          </details>
         </aside>
 
         <div className="manual-content">

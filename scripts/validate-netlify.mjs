@@ -40,6 +40,9 @@ const checks = [
   [html.includes('lang="es"'), "Falta el idioma español en el documento."],
   [html.includes('name="viewport"'), "Falta la configuración adaptable de viewport."],
   [html.includes('name="author" content="Angel A. Urbina"'), "Falta la atribución profesional del autor."],
+  [html.includes("Edición visual 3.0"), "Falta la identificación de la edición visual 3.0."],
+  [html.includes('class="reflection-cue"'), "Falta la pausa reflexiva de la portada."],
+  [html.includes('class="index-disclosure"'), "Falta el índice progresivo para pantallas pequeñas."],
   [html.includes('id="modelo"'), "Falta el modelo esencial de seis palancas."],
   [html.includes('id="tablero"'), "Falta el nuevo atlas visual."],
   [html.includes('id="fuentes"'), "Falta la bibliografía."],
@@ -56,7 +59,9 @@ const checks = [
   [missingTargets.length === 0, `Hay enlaces internos sin destino: ${missingTargets.join(", ")}`],
   [duplicateIds.length === 0, `Hay identificadores duplicados: ${duplicateIds.join(", ")}`],
   [[1120, 860, 560, 380].every((width) => css.includes(`@media (max-width: ${width}px)`)), "Faltan puntos de ruptura para ordenador, tableta o móvil."],
-  [css.includes("grid-template-columns: 32px minmax(0, 1fr)"), "El diagnóstico de bolsillo puede volver a comprimir el texto en la columna numérica."],
+  [[1180, 960, 760, 520].every((width) => css.includes(`@media screen and (max-width: ${width}px)`)), "Faltan los puntos de ruptura del sistema visual 3.0."],
+  [css.includes("grid-template-columns: 40px minmax(0, 1fr)"), "El diagnóstico de bolsillo puede volver a comprimir el texto en la columna numérica."],
+  [css.includes("Edición visual 3.0"), "Falta el sistema visual contemporáneo."],
   [css.includes("content: attr(data-label)"), "Las tablas extensas no se transforman en tarjetas legibles en móvil."],
 ];
 

@@ -46,6 +46,7 @@ const schema = {
   headline: "Los Manuales del Poder Real",
   description,
   inLanguage: "es",
+  version: "3.0",
   dateModified: "2026-08-02",
   author: { "@type": "Person", name: "Angel A. Urbina" },
   copyrightHolder: { "@type": "Person", name: "Angel A. Urbina" },
@@ -67,7 +68,7 @@ const html = `<!doctype html>
     <meta name="author" content="Angel A. Urbina">
     <meta name="copyright" content="Angel A. Urbina, 2026">
     <meta name="robots" content="index,follow,max-image-preview:large">
-    <meta name="theme-color" content="#142b3d">
+    <meta name="theme-color" content="#102b36">
     <link rel="canonical" href="${siteUrl}/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="manifest" href="/manifest.webmanifest">
@@ -125,6 +126,40 @@ const clientScript = `(() => {
     }
     if (empty) empty.hidden = visible !== 0;
   });
+
+  const indexDisclosure = document.querySelector('.index-disclosure');
+  const compactIndex = window.matchMedia('(max-width: 960px)');
+  const syncIndex = () => {
+    if (!indexDisclosure) return;
+    if (compactIndex.matches) indexDisclosure.removeAttribute('open');
+    else indexDisclosure.setAttribute('open', '');
+  };
+  syncIndex();
+  compactIndex.addEventListener('change', syncIndex);
+
+  const indexLinks = Array.from(document.querySelectorAll('.nav-group a[href^="#"]'));
+  const sections = indexLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+  const activate = (id) => {
+    for (const link of indexLinks) {
+      const active = link.getAttribute('href') === '#' + id;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  };
+  if ('IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) activate(entry.target.id);
+      }
+    }, { rootMargin: '-18% 0px -70% 0px' });
+    sections.forEach((section) => sectionObserver.observe(section));
+  }
+  indexLinks.forEach((link) => link.addEventListener('click', () => {
+    if (compactIndex.matches) indexDisclosure?.removeAttribute('open');
+  }));
 })();
 `;
 
@@ -149,8 +184,8 @@ const manifest = {
   lang: "es",
   start_url: "/",
   display: "standalone",
-  background_color: "#f6f1e7",
-  theme_color: "#142b3d",
+  background_color: "#f4f2ed",
+  theme_color: "#102b36",
   icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml" }],
 };
 
