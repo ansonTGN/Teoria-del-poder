@@ -1,8 +1,12 @@
 # Los Manuales del Poder Real
 
+Autor y editor: **Angel A. Urbina · 2026**
+
 Sitio editorial en español sobre poder, influencia y control social. Compara a Maquiavelo, Sun Tzu y Han Feizi con tradiciones políticas de distintas culturas, sociología contemporánea, psicología social e inteligencia artificial.
 
-La edición 2.1 incorpora un atlas visual elaborado a partir de *The Illuminated Board* y *The Power Blueprint*, además de una revisión crítica del *Manual Práctico del Poder*. Integra teoría de juegos, BATNA, diseño de mecanismos, señales, compromisos, coaliciones y juegos repetidos; amplía la psicología del poder y añade protocolos responsables para organizaciones, negociación y crisis.
+La edición 2.2 reorganiza el manual para priorizar la comprensión sin eliminar profundidad. Presenta primero una definición operativa, un modelo de seis palancas y tres rutas de lectura; después ofrece aplicación práctica y deja la teoría, la evidencia, los casos, el glosario y las fuentes en apartados de profundización desplegables.
+
+El contenido incorpora un atlas visual elaborado a partir de *The Illuminated Board* y *The Power Blueprint*, además de una revisión crítica del *Manual Práctico del Poder*. Integra teoría de juegos, BATNA, diseño de mecanismos, señales, compromisos, coaliciones y juegos repetidos; amplía la psicología del poder y añade protocolos responsables para organizaciones, negociación y crisis.
 
 El material se presenta con atribución, cautelas empíricas y una separación explícita entre descripción, explicación científica, juicio normativo y aplicación práctica. El criterio editorial es comprender las dinámicas de poder para reconocerlas, ejercer autoridad legítima, limitarlas y resistir abusos; no para explotar vulnerabilidades.
 

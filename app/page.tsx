@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element -- preoptimised local assets must remain portable in the static Netlify export */
 
 import { useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import {
   algorithmicModes,
   cases,
@@ -124,23 +125,102 @@ const laws = [
   },
 ];
 
-const navItems = [
-  ["apertura", "Tesis central"],
-  ["trilogia", "Los tres manuales"],
-  ["tablero", "Atlas del tablero invisible"],
-  ["juego", "Teoría de juegos y poder"],
-  ["leyes", "Cinco leyes silenciosas"],
-  ["culturas", "Mapa intercultural"],
-  ["sociologia", "Sociología del poder"],
-  ["evidencia", "Psicología y propaganda"],
-  ["algoritmos", "Poder algorítmico"],
-  ["diagnostico", "Modelo de diagnóstico"],
-  ["casos", "Casos comparados"],
-  ["autonomia", "Autonomía estratégica"],
-  ["contrapesos", "Contrapesos y auditorías"],
-  ["glosario", "Glosario"],
-  ["fuentes", "Fuentes y notas"],
+const navGroups = [
+  {
+    label: "Entender",
+    items: [
+      ["apertura", "Definición y rutas"],
+      ["modelo", "El modelo de seis palancas"],
+      ["trilogia", "Maquiavelo, Sun Tzu y Han Feizi"],
+      ["leyes", "Cinco regularidades"],
+    ],
+  },
+  {
+    label: "Ver el sistema",
+    items: [
+      ["tablero", "Estructura y atención"],
+      ["sociologia", "Sociología del poder"],
+      ["evidencia", "Mente y obediencia"],
+      ["algoritmos", "Poder algorítmico"],
+    ],
+  },
+  {
+    label: "Actuar y limitar",
+    items: [
+      ["diagnostico", "Diagnóstico práctico"],
+      ["autonomia", "Autonomía estratégica"],
+      ["contrapesos", "Legitimidad y contrapoder"],
+    ],
+  },
+  {
+    label: "Profundizar",
+    items: [
+      ["juego", "Teoría de juegos"],
+      ["culturas", "Tradiciones comparadas"],
+      ["casos", "Casos"],
+      ["glosario", "Glosario"],
+      ["fuentes", "Fuentes"],
+    ],
+  },
+] as const;
+
+const leverQuestions = [
+  "¿Quién decide qué opciones existen?",
+  "¿Quién recibe el beneficio y quién soporta el coste?",
+  "¿Quién sabe, quién debe creer y qué puede comprobarse?",
+  "¿Quién fija el orden, el plazo y lo que queda fuera?",
+  "¿Quién puede rechazar el acuerdo sin sufrir un daño desproporcionado?",
+  "¿Quién puede coordinar, legitimar, bloquear o retirar cooperación?",
 ];
+
+const readingRoutes = [
+  {
+    time: "10 min",
+    title: "Quiero entenderlo",
+    text: "Lee la definición, las seis palancas y las cinco regularidades. Obtendrás el mapa completo sin entrar todavía en la teoría.",
+    href: "#modelo",
+    action: "Empezar por el mapa",
+  },
+  {
+    time: "25 min",
+    title: "Quiero aplicarlo",
+    text: "Ve al diagnóstico, los protocolos y los contrapesos. Sirve para organizaciones, negociación, crisis y evaluación de mensajes.",
+    href: "#diagnostico",
+    action: "Ir al manual práctico",
+  },
+  {
+    time: "Lectura larga",
+    title: "Quiero profundizar",
+    text: "Abre los apartados de ciencia, teoría de juegos, tradiciones culturales, casos y fuentes cuando necesites fundamento o contexto.",
+    href: "#trilogia",
+    action: "Entrar en la teoría",
+  },
+];
+
+function DepthDisclosure({
+  label,
+  title,
+  description,
+  children,
+}: {
+  label: string;
+  title: string;
+  description: string;
+  children: ReactNode;
+}) {
+  return (
+    <details className="depth-disclosure">
+      <summary>
+        <span>{label}</span>
+        <div>
+          <strong>{title}</strong>
+          <small>{description}</small>
+        </div>
+      </summary>
+      <div className="depth-content">{children}</div>
+    </details>
+  );
+}
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -193,17 +273,17 @@ export default function Home() {
         <div className="hero-orbit orbit-two" />
         <div className="hero-copy">
           <p className="eyebrow">Sociología · Política · Psicología · Inteligencia artificial</p>
-          <h1>El poder rara vez se presenta con su nombre verdadero.</h1>
+          <h1>Cómo funciona el poder cuando nadie lo llama poder.</h1>
           <p className="hero-lead">
-            Un manual crítico y práctico para comprender cómo se construyen la influencia, la obediencia
-            y el control; qué explican la ciencia y la filosofía sobre sus mecanismos; y cómo preservar
-            autonomía, legitimidad y capacidad de corrección dentro del tablero real.
+            Una guía para reconocer quién configura las opciones, los incentivos, la información y la
+            agenda; comprender por qué obedecemos, cooperamos o resistimos; y ejercer autoridad sin
+            convertirla en dominación.
           </p>
           <div className="hero-actions">
-            <a className="primary-action" href="#apertura">Comenzar la lectura</a>
-            <a className="secondary-action" href="#autonomia">Ir a las defensas</a>
+            <a className="primary-action" href="#modelo">Entenderlo en 10 minutos</a>
+            <a className="secondary-action" href="#diagnostico">Ir al manual práctico</a>
           </div>
-          <p className="edition">Edición 2.1 · Agosto de 2026 · Tarragona</p>
+          <p className="edition">Edición 2.2 · Angel A. Urbina · 2026</p>
         </div>
         <figure className="hero-visual">
           <div className="hero-visual-frame">
@@ -216,65 +296,81 @@ export default function Home() {
           </div>
           <figcaption>
             <span>01</span>
-            El tablero existe antes del movimiento: posiciones, reglas, visibilidad y margen de salida.
+            Antes del movimiento ya existen posiciones, reglas, información y salidas desiguales.
           </figcaption>
         </figure>
       </section>
 
       <section className="orientation" id="apertura">
-        <div className="section-label">00 · Tesis central</div>
+        <div className="section-label">00 · Orientación</div>
         <div className="orientation-grid">
           <div>
-            <h2>El poder real no es sólo fuerza: es capacidad de estructurar posibilidades.</h2>
+            <h2>El poder es la capacidad de cambiar lo que otros pueden hacer, saber, esperar o rechazar.</h2>
+            <p className="definition-line">
+              No reside sólo en una persona. También vive en el cargo, la norma, el presupuesto, la
+              tecnología, la reputación, la agenda y la dependencia.
+            </p>
           </div>
           <div className="prose-large">
             <p>
-              El texto de partida acierta al desplazar la mirada desde la autoridad visible hacia la
-              información, la percepción y el diseño del entorno. Esta edición añade una precisión
-              decisiva: el poder nunca es completamente invisible ni infalible. Deja huellas en quién
-              puede hablar, qué opciones aparecen, cómo se reparte el riesgo y quién tiene derecho a
-              corregir una decisión.
+              Para comprender una situación no basta con preguntar «¿quién manda?». Hay que observar
+              quién diseña las opciones, reparte costes, posee información, fija el orden de las
+              decisiones, puede retirarse y consigue que su interpretación parezca legítima.
             </p>
             <p>
-              El control social tampoco es siempre ilegítimo. Toda sociedad coordina conductas mediante
-              leyes, normas y expectativas. La frontera entre gobierno y dominación depende de la
-              legalidad, necesidad, proporcionalidad, transparencia, participación, posibilidad de
-              impugnación y reparación.
+              Toda convivencia orienta conductas mediante leyes, normas y expectativas. Eso no equivale
+              automáticamente a abuso. La frontera aparece cuando faltan límites, razones públicas,
+              participación, posibilidad de decir no, revisión independiente y reparación.
             </p>
           </div>
+        </div>
+        <div className="reading-routes" aria-label="Rutas de lectura">
+          {readingRoutes.map((route, index) => (
+            <article key={route.title}>
+              <span>{String(index + 1).padStart(2, "0")} · {route.time}</span>
+              <h3>{route.title}</h3>
+              <p>{route.text}</p>
+              <a href={route.href}>{route.action} →</a>
+            </article>
+          ))}
         </div>
         <div className="thesis-strip">
           <article>
             <span>1</span>
-            <strong>Observar</strong>
-            <p>Quién define la situación y qué datos puede ver.</p>
+            <strong>Influencia</strong>
+            <p>Intenta orientar una decisión; puede ser abierta, discutible y legítima.</p>
           </article>
           <article>
             <span>2</span>
-            <strong>Clasificar</strong>
-            <p>Qué categorías convierten a personas en casos administrables.</p>
+            <strong>Autoridad</strong>
+            <p>Facultad reconocida para decidir dentro de un mandato y unos límites.</p>
           </article>
           <article>
             <span>3</span>
-            <strong>Orientar</strong>
-            <p>Cómo se ordenan opciones, incentivos, relatos y atención.</p>
+            <strong>Coerción</strong>
+            <p>Modifica conducta mediante una amenaza creíble de sanción o pérdida.</p>
           </article>
           <article>
             <span>4</span>
-            <strong>Corregir</strong>
-            <p>Quién puede cuestionar, apelar y reparar el resultado.</p>
+            <strong>Manipulación</strong>
+            <p>Oculta una intención o explota una vulnerabilidad para impedir una elección informada.</p>
           </article>
         </div>
       </section>
 
       <div className="manual-shell">
         <aside className="manual-index" id="indice">
-          <p>Índice de lectura</p>
-          {navItems.map(([id, label], index) => (
-            <a href={`#${id}`} key={id}>
-              <span>{String(index).padStart(2, "0")}</span>
-              {label}
-            </a>
+          <p>Mapa del manual</p>
+          {navGroups.map((group) => (
+            <div className="nav-group" key={group.label}>
+              <strong>{group.label}</strong>
+              {group.items.map(([id, label], index) => (
+                <a href={`#${id}`} key={id}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {label}
+                </a>
+              ))}
+            </div>
           ))}
           <label className="search-box">
             <span>Buscar en los autores</span>
@@ -293,15 +389,80 @@ export default function Home() {
         </aside>
 
         <div className="manual-content">
+          <section className="chapter core-model" id="modelo">
+            <div className="chapter-kicker">01 · El mapa esencial</div>
+            <h2>Seis palancas explican cómo el poder cambia una situación</h2>
+            <p className="chapter-intro">
+              Empieza aquí. En vez de memorizar decenas de teorías, busca estas seis palancas. Una
+              persona o institución gana poder cuando puede mover varias a la vez mientras los demás
+              dependen de sus decisiones y carecen de contrapesos.
+            </p>
+
+            <div className="chapter-compass">
+              <p><strong>Idea clave</strong>El poder no es una sustancia que alguien «posee»; es una relación entre capacidades y dependencias.</p>
+              <p><strong>Cómo se ve</strong>Opciones estrechas, costes desiguales, información asimétrica, agenda cerrada, salida cara o legitimidad concentrada.</p>
+              <p><strong>Pregunta guía</strong>¿Qué puede cambiar este actor para que la conducta de los demás cambie sin una orden directa?</p>
+            </div>
+
+            <div className="power-definition">
+              <span>Heurística de lectura</span>
+              <p><strong>Poder práctico</strong> = control de palancas + dependencia ajena − contrapesos efectivos</p>
+              <small>No es una fórmula matemática ni una puntuación universal. Sirve para ordenar preguntas.</small>
+            </div>
+
+            <div className="core-lever-grid">
+              {gameLevers.map((item, index) => (
+                <article key={item.lever}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{item.lever}</h3>
+                  <p>{item.changes}</p>
+                  <strong>{leverQuestions[index]}</strong>
+                </article>
+              ))}
+            </div>
+
+            <div className="quick-diagnostic">
+              <div>
+                <p className="eyebrow">Diagnóstico de bolsillo</p>
+                <h3>Describe la situación en cinco pasos</h3>
+              </div>
+              <ol>
+                <li><strong>Actor:</strong> quién intenta cambiar una conducta, decisión o agenda.</li>
+                <li><strong>Palanca:</strong> qué regla, recurso, dato, secuencia, salida o alianza controla.</li>
+                <li><strong>Dependencia:</strong> qué perdería la otra parte si se negara.</li>
+                <li><strong>Legitimidad:</strong> qué razón vuelve aceptable o inevitable la intervención.</li>
+                <li><strong>Contrapeso:</strong> quién puede revisar, detener, corregir o reparar.</li>
+              </ol>
+            </div>
+
+            <div className="model-limits">
+              <strong>Tres límites para no confundir análisis con justificación</strong>
+              <div>
+                <p><span>Equilibrio ≠ justicia.</span> Una situación estable puede ser coercitiva o profundamente desigual.</p>
+                <p><span>Influencia ≠ control total.</span> Las personas interpretan, resisten, se organizan y producen efectos imprevistos.</p>
+                <p><span>Predicción ≠ permiso.</span> Reconocer una vulnerabilidad no autoriza a explotarla.</p>
+              </div>
+            </div>
+            <a className="route-next" href="#trilogia">
+              <span>Ruta breve · siguiente</span>
+              <strong>Ver qué aporta cada uno de los tres clásicos →</strong>
+            </a>
+          </section>
+
           <section className="chapter" id="trilogia">
-            <div className="chapter-kicker">01 · Los tres manuales</div>
+            <div className="chapter-kicker">02 · Los tres manuales</div>
             <h2>Tres culturas, tres problemas, una pregunta común</h2>
             <p className="chapter-intro">
-              ¿Cómo puede una autoridad actuar en un mundo incierto, con información incompleta y
-              agentes cuyos intereses no siempre coinciden con los suyos? Maquiavelo responde desde la
-              fragilidad de los Estados italianos; Sun Tzu, desde la guerra; Han Feizi, desde la crisis
-              administrativa de los Reinos Combatientes.
+              Los tres autores estudian cómo actuar con incertidumbre e intereses en conflicto, pero no
+              dicen lo mismo ni escriben para el mismo mundo. Maquiavelo lee la política; Sun Tzu diseña
+              las condiciones del conflicto; Han Feizi organiza la administración.
             </p>
+
+            <div className="chapter-compass">
+              <p><strong>Maquiavelo</strong>Leer fuerzas, reputación, conflicto, instituciones y oportunidad.</p>
+              <p><strong>Sun Tzu</strong>Preparar información, terreno y ritmo para reducir el coste del choque.</p>
+              <p><strong>Han Feizi</strong>Separar el cargo de la persona y comparar mandato con resultados.</p>
+            </div>
 
             <div className="thinker-grid" aria-live="polite">
               {filteredThinkers.map((thinker) => (
@@ -356,17 +517,31 @@ export default function Home() {
                 <p>Hacer comparables mandato, desempeño y sanción.</p>
               </div>
             </div>
+            <a className="route-next" href="#leyes">
+              <span>Ruta breve · saltar la profundización</span>
+              <strong>Continuar con las cinco regularidades →</strong>
+            </a>
           </section>
 
           <section className="chapter atlas" id="tablero">
-            <div className="chapter-kicker">02 · Atlas del tablero invisible</div>
+            <div className="chapter-kicker">03 · Estructura y atención</div>
             <h2>Dos capas para leer el poder: la estructura y la atención</h2>
             <p className="chapter-intro">
-              <em>El Tablero Iluminado</em> representa la arquitectura de decisiones; <em>The Power
-              Blueprint</em> enlaza esa escala institucional con la psicología de la atención. Esta
-              edición combina ambos materiales como un método de diagnóstico: observar qué opciones
-              existen, qué se vuelve relevante y qué mecanismos permiten corregir el rumbo.
+              La estructura decide qué puede hacerse; la atención influye en qué parece importante.
+              Una lectura completa añade una tercera capa: quién puede revisar y cambiar el diseño.
             </p>
+
+            <div className="chapter-compass">
+              <p><strong>Idea clave</strong>El tablero orienta la acción antes de que aparezca una orden.</p>
+              <p><strong>Cómo se ve</strong>Reglas, métricas, valores por defecto, rankings, plazos y categorías.</p>
+              <p><strong>Pregunta guía</strong>¿Qué opción o consecuencia queda fuera del campo visible?</p>
+            </div>
+
+            <DepthDisclosure
+              label="Atlas visual"
+              title="Ver las láminas y el análisis de la atención"
+              description="Imágenes de los documentos aportados, contexto, identidad y canales de decisión."
+            >
 
             <div className="source-banner">
               <span>Material incorporado</span>
@@ -487,6 +662,8 @@ export default function Home() {
               </div>
             </div>
 
+            </DepthDisclosure>
+
             <h3 className="subsection-title">Una ruta de lectura en seis movimientos</h3>
             <div className="board-route">
               {[
@@ -504,6 +681,11 @@ export default function Home() {
               ))}
             </div>
 
+            <DepthDisclosure
+              label="Dos consecuencias"
+              title="Miedo informativo y autodominio"
+              description="Por qué el control rápido ciega a una organización y por qué regularse no significa volverse opaco."
+            >
             <div className="visual-essay">
               <figure className="document-figure">
                 <img
@@ -556,17 +738,29 @@ export default function Home() {
                 </figcaption>
               </figure>
             </div>
+            </DepthDisclosure>
           </section>
 
           <section className="chapter game-theory" id="juego">
-            <div className="chapter-kicker">03 · Teoría de juegos y arquitectura del poder</div>
+            <div className="chapter-kicker">04 · Profundización estratégica</div>
             <h2>El poder modifica el juego antes de intentar ganar una jugada</h2>
             <p className="chapter-intro">
-              El documento <em>Manual Práctico del Poder</em> aporta una intuición fértil: una persona
-              poderosa no sólo elige dentro de un conjunto de opciones; puede influir en las reglas, la
-              información, los incentivos, la secuencia y la posibilidad de salir. Esta edición conserva
-              esa intuición, corrige las fórmulas aparentes y separa análisis estratégico de permiso moral.
+              La teoría de juegos formaliza una intuición ya presentada en el mapa: quien puede cambiar
+              reglas, información, incentivos o alternativas no participa simplemente en el juego;
+              interviene en su arquitectura.
             </p>
+
+            <div className="chapter-compass">
+              <p><strong>Idea clave</strong>Una estrategia depende de lo que harán los demás y de lo que cada parte sabe.</p>
+              <p><strong>Utilidad</strong>Ayuda a estudiar negociación, compromiso, señales, coaliciones y cooperación repetida.</p>
+              <p><strong>Límite</strong>Un equilibrio describe estabilidad; no demuestra legitimidad, justicia ni bienestar.</p>
+            </div>
+
+            <DepthDisclosure
+              label="Profundización"
+              title="Abrir teoría de juegos y arquitectura institucional"
+              description="Modelo formal, BATNA, mecanismos, señales, compromisos, coaliciones y juegos repetidos."
+            >
 
             <div className="register-grid" aria-label="Cuatro registros para estudiar el poder">
               <article>
@@ -712,6 +906,8 @@ export default function Home() {
               </article>
             </div>
 
+            </DepthDisclosure>
+
             <div className="model-limits">
               <strong>Tres límites que ningún modelo estratégico debe borrar</strong>
               <div>
@@ -723,11 +919,11 @@ export default function Home() {
           </section>
 
           <section className="chapter" id="leyes">
-            <div className="chapter-kicker">04 · Síntesis crítica</div>
-            <h2>Las cinco leyes silenciosas del poder</h2>
+            <div className="chapter-kicker">05 · Síntesis de los clásicos</div>
+            <h2>Cinco regularidades: qué observar y cómo defenderse</h2>
             <p className="chapter-intro">
-              Se presentan como regularidades analíticas, no como leyes naturales ni mandatos. Cada una
-              incluye el límite que impide convertir una intuición útil en una doctrina de abuso.
+              No son leyes naturales ni instrucciones para manipular. Son patrones frecuentes que
+              permiten reconocer una dinámica, comprobar sus límites y elegir una defensa.
             </p>
             <div className="laws-list">
               {laws.map((law) => (
@@ -744,16 +940,25 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            <a className="route-next" href="#diagnostico">
+              <span>Ruta práctica</span>
+              <strong>Aplicar el mapa a una situación real →</strong>
+            </a>
           </section>
 
           <section className="chapter" id="culturas">
-            <div className="chapter-kicker">05 · Mapa intercultural</div>
+            <div className="chapter-kicker">06 · Tradiciones comparadas</div>
             <h2>El poder no tiene una sola genealogía</h2>
             <p className="chapter-intro">
-              Las tradiciones políticas no responden a una misma pregunta ni usan las mismas categorías.
-              Compararlas no significa declararlas equivalentes: permite descubrir qué presupone cada
-              teoría sobre la persona, el conflicto, la autoridad, el conocimiento y el bien común.
+              Otras culturas no son notas al pie de Europa. Cada tradición formula de manera distinta
+              la relación entre autoridad, conflicto, virtud, prosperidad, comunidad y resistencia.
+              Abre sólo la región que necesites comparar.
             </p>
+            <div className="chapter-compass">
+              <p><strong>Cómo leer</strong>Compara problemas y mecanismos, no palabras aisladas.</p>
+              <p><strong>Qué evita</strong>La falsa idea de que existe una única teoría universal del mando.</p>
+              <p><strong>Pregunta guía</strong>¿Quién limita a quien gobierna y qué imagen del ser humano presupone?</p>
+            </div>
             <div className="method-note">
               <strong>Cinco preguntas para leer a cualquier autor</strong>
               <ol>
@@ -794,19 +999,28 @@ export default function Home() {
           </section>
 
           <section className="chapter" id="sociologia">
-            <div className="chapter-kicker">06 · De la soberanía a la vida cotidiana</div>
+            <div className="chapter-kicker">07 · De la orden a la normalidad</div>
             <h2>La sociología moderna descubre varias caras del poder</h2>
             <p className="chapter-intro">
-              El poder no sólo ordena. También decide qué llega a discutirse, produce categorías,
-              distribuye recursos, forma hábitos y convierte ciertas interpretaciones en sentido común.
-              Estas lentes son complementarias: ninguna explica por sí sola todas las situaciones.
+              El poder actúa en cuatro niveles: decide, excluye asuntos de la agenda, moldea preferencias
+              y construye infraestructuras. Distinguirlos evita usar «poder» como una palabra que lo explica todo.
             </p>
+            <div className="chapter-compass">
+              <p><strong>Decisión</strong>Quién obtiene una conducta concreta.</p>
+              <p><strong>Agenda y sentido</strong>Qué no llega a discutirse y qué parece normal.</p>
+              <p><strong>Infraestructura</strong>Qué permite o impide el entorno antes de cualquier orden.</p>
+            </div>
             <div className="dimensions-map">
               <div><span>1</span><strong>Decisión</strong><p>A obtiene de B una conducta que B no habría elegido.</p></div>
               <div><span>2</span><strong>Agenda</strong><p>Algunos conflictos no llegan a convertirse en asuntos decidibles.</p></div>
               <div><span>3</span><strong>Preferencia</strong><p>La normalidad moldea lo que parece deseable, realista o imaginable.</p></div>
               <div><span>4</span><strong>Infraestructura</strong><p>El entorno técnico define acciones posibles antes de toda orden.</p></div>
             </div>
+            <DepthDisclosure
+              label="Autores"
+              title="Recorrer la genealogía sociológica"
+              description="De Hobbes, Locke y Montesquieu a Marx, Weber, Gramsci, Arendt, Foucault, Lukes, Scott y Ostrom."
+            >
             <div className="frames-timeline">
               {modernFrames.map((frame, index) => (
                 <article key={frame.name}>
@@ -819,6 +1033,7 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            </DepthDisclosure>
             <div className="synthesis-box">
               <p className="eyebrow">Síntesis</p>
               <h3>Mandar, excluir de la agenda, normalizar y diseñar infraestructura son operaciones distintas.</h3>
@@ -831,8 +1046,24 @@ export default function Home() {
           </section>
 
           <section className="chapter evidence" id="evidencia">
-            <div className="chapter-kicker">07 · Psicología, obediencia y propaganda</div>
-            <h2>El poder cambia la atención, pero la evidencia no autoriza determinismos</h2>
+            <div className="chapter-kicker">08 · Psicología y estructura mental</div>
+            <h2>Somos influenciables, pero no programables</h2>
+            <p className="chapter-intro">
+              La mente selecciona información, busca seguridad, protege identidad y aprende de otras
+              personas. Esas capacidades hacen posible la cooperación y también abren vulnerabilidades.
+              El contexto cambia probabilidades; no elimina conciencia, resistencia ni responsabilidad.
+            </p>
+            <div className="chapter-compass">
+              <p><strong>Idea clave</strong>La influencia funciona porque la mente es limitada, social y predictiva.</p>
+              <p><strong>Error frecuente</strong>Convertir un experimento concreto en una ley eterna sobre «la naturaleza humana».</p>
+              <p><strong>Defensa general</strong>Pausa, contraste, disenso protegido, criterios previos y responsabilidad identificable.</p>
+            </div>
+
+            <DepthDisclosure
+              label="Evidencia"
+              title="Revisar estudios y mecanismos psicológicos"
+              description="Replicación, seguridad psicológica, conformidad, obediencia, identidad, disonancia y arquitectura de elección."
+            >
             <div className="evidence-grid">
               <article>
                 <span className="evidence-tag">Hallazgo original</span>
@@ -890,6 +1121,7 @@ export default function Home() {
                 contextos donde disentir y detenerse sea viable.
               </p>
             </div>
+            </DepthDisclosure>
             <h3 className="subsection-title">Lo que el poder revela sobre la estructura mental humana</h3>
             <p className="section-prologue">
               La posibilidad de influir no demuestra que el ser humano sea irracional ni programable.
@@ -923,6 +1155,11 @@ export default function Home() {
                 azar y resistencia.
               </p>
             </div>
+            <DepthDisclosure
+              label="Propaganda"
+              title="Examinar cómo se orientan agenda, marco y emoción"
+              description="Ocho mecanismos mediáticos, señales de detección y contramedidas."
+            >
             <h3 className="subsection-title">De la propaganda masiva a la persuasión personalizada</h3>
             <div className="media-table" role="table" aria-label="Mecanismos de propaganda y defensas">
               <div className="media-row media-head" role="row">
@@ -937,6 +1174,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            </DepthDisclosure>
             <blockquote>
               <p>El miedo compra silencio con rapidez, pero cobra intereses en forma de ceguera.</p>
               <footer>Principio de diagnóstico organizativo</footer>
@@ -944,13 +1182,18 @@ export default function Home() {
           </section>
 
           <section className="chapter" id="algoritmos">
-            <div className="chapter-kicker">08 · Inteligencia artificial y gobierno algorítmico</div>
+            <div className="chapter-kicker">09 · Inteligencia artificial</div>
             <h2>Cuando el poder se convierte en un bucle de datos</h2>
             <p className="chapter-intro">
-              La IA no inventa la dominación, pero altera su escala, velocidad, opacidad y capacidad de
-              personalización. El cambio decisivo no es que una máquina «mande»: es que observar,
-              clasificar, ordenar e intervenir puedan integrarse en un sistema que aprende de la reacción.
+              La IA no «manda» por sí sola. El poder está en la organización que decide qué datos
+              recoger, qué objetivo optimizar, qué errores aceptar y si una persona puede comprender,
+              impugnar o abandonar el sistema.
             </p>
+            <div className="chapter-compass">
+              <p><strong>Idea clave</strong>Datos, inferencia, ranking e intervención forman un bucle que aprende de la reacción.</p>
+              <p><strong>Riesgo</strong>La asimetría se multiplica cuando hay opacidad, dependencia, personalización y escala.</p>
+              <p><strong>Pregunta guía</strong>¿Quién responde por el objetivo, el dato, el error y la reparación?</p>
+            </div>
             <div className="algorithm-loop" aria-label="Bucle de poder algorítmico">
               {[
                 ["01", "Observar", "Recoger conducta y contexto"],
@@ -962,6 +1205,11 @@ export default function Home() {
                 <div key={number}><span>{number}</span><strong>{title}</strong><p>{text}</p></div>
               ))}
             </div>
+            <DepthDisclosure
+              label="Aplicaciones"
+              title="Abrir las siete formas de poder algorítmico"
+              description="Dataficación, perfilado, ranking, microsegmentación, decisión automatizada, trabajo e IA persuasiva."
+            >
             <div className="algorithmic-grid">
               {algorithmicModes.map((mode) => (
                 <article key={mode.name}>
@@ -974,6 +1222,7 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            </DepthDisclosure>
             <div className="risk-formula">
               <div>
                 <p className="eyebrow">Heurística, no ley científica</p>
@@ -990,6 +1239,11 @@ export default function Home() {
                 «revisión humana» sólo cuenta si tiene información, tiempo y autoridad para cambiar el resultado.
               </p>
             </div>
+            <DepthDisclosure
+              label="Gobernanza"
+              title="Abrir marco jurídico y estándares de gestión del riesgo"
+              description="Unión Europea, Consejo de Europa, UNESCO y NIST, con fecha de situación explícita."
+            >
             <div className="law-context">
               <div>
                 <span>Unión Europea · situación al 2 de agosto de 2026</span>
@@ -998,9 +1252,12 @@ export default function Home() {
               <p>
                 El Reglamento Europeo de IA aplica un enfoque basado en riesgo. Las prohibiciones de
                 determinadas prácticas -incluidas formas de manipulación dañina, explotación de
-                vulnerabilidades y puntuación social bajo los supuestos de la norma- son aplicables desde
-                el 2 de febrero de 2025. La mayor parte del Reglamento pasa a ser aplicable el 2 de agosto
-                de 2026, con excepciones y transiciones específicas.
+                vulnerabilidades y puntuación social bajo los supuestos de la norma- comenzaron a
+                aplicarse el 2 de febrero de 2025. Las reglas de gobernanza y los deberes para modelos de
+                propósito general rigen desde agosto de 2025; desde el 2 de agosto de 2026 se aplican,
+                entre otras, reglas de transparencia y el marco de supervisión. Tras las modificaciones
+                de 2026, determinados sistemas de alto riesgo tienen transiciones hasta diciembre de
+                2027 o agosto de 2028. Siempre debe consultarse el texto vigente para el caso concreto.
               </p>
               <ul>
                 <li><strong>Consejo de Europa:</strong> derechos humanos, democracia y Estado de derecho durante todo el ciclo de vida.</li>
@@ -1008,16 +1265,44 @@ export default function Home() {
                 <li><strong>NIST AI RMF:</strong> gobernar, mapear, medir y gestionar riesgos de forma continua.</li>
               </ul>
             </div>
+            </DepthDisclosure>
           </section>
 
           <section className="chapter" id="diagnostico">
-            <div className="chapter-kicker">09 · Modelo integrado de diagnóstico</div>
-            <h2>Localizar la fuente, el mecanismo y el contrapeso</h2>
+            <div className="chapter-kicker">10 · Manual práctico</div>
+            <h2>Diagnosticar antes de actuar</h2>
             <p className="chapter-intro">
-              Decir «esto es poder» es el comienzo, no el diagnóstico. Hay que identificar qué recurso
-              produce dependencia, dónde opera, con qué visibilidad, durante cuánto tiempo y bajo qué
-              posibilidad de corrección.
+              Un buen diagnóstico sustituye etiquetas vagas por una explicación comprobable: quién
+              intenta producir qué cambio, con qué palanca, sobre qué dependencia y bajo qué límites.
             </p>
+
+            <div className="chapter-compass">
+              <p><strong>Primero</strong>Describe la conducta o decisión que está cambiando, no la personalidad del actor.</p>
+              <p><strong>Después</strong>Localiza la palanca, la dependencia y la justificación que sostiene la intervención.</p>
+              <p><strong>Por último</strong>Comprueba si hay voz, salida, revisión, reversibilidad y reparación.</p>
+            </div>
+
+            <div className="diagnostic-sequence" aria-label="Diagnóstico paso a paso">
+              {[
+                ["1", "Delimita", "¿Qué decisión concreta, en qué arena y durante qué periodo?"],
+                ["2", "Dibuja actores", "¿Quién decide, ejecuta, obedece, se beneficia y soporta el riesgo?"],
+                ["3", "Localiza palancas", "¿Qué reglas, costes, datos, secuencia, salida o coalición cambian la conducta?"],
+                ["4", "Mide dependencia", "¿Qué alternativa real tiene cada parte si rechaza la propuesta?"],
+                ["5", "Contrasta razones", "¿La finalidad, la evidencia y los efectos pueden conocerse y discutirse?"],
+                ["6", "Prueba límites", "¿Quién puede detener, revisar, corregir y reparar sin represalias?"],
+              ].map(([number, title, question]) => (
+                <article key={number}>
+                  <span>{number}</span>
+                  <div><h3>{title}</h3><p>{question}</p></div>
+                </article>
+              ))}
+            </div>
+
+            <DepthDisclosure
+              label="Mapa completo"
+              title="Consultar fuentes de poder y ciclo del control social"
+              description="Ocho fuentes, diez momentos del ciclo y la pregunta de control correspondiente a cada uno."
+            >
             <div className="power-table" role="table" aria-label="Fuentes del poder y contrapesos">
               <div className="power-row power-head" role="row">
                 <span>Fuente</span><span>Recurso principal</span><span>Manifestación</span><span>Contrapeso</span>
@@ -1053,6 +1338,7 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            </DepthDisclosure>
             <div className="diagnostic-card">
               <h3>Plantilla de una frase</h3>
               <p>
@@ -1095,16 +1381,24 @@ export default function Home() {
                 seguros y revisión independiente, y tratarse conforme a la ley y a la protección de las personas.
               </p>
             </div>
+            <a className="route-next" href="#autonomia">
+              <span>Ruta práctica · siguiente</span>
+              <strong>Recuperar capacidad de elección →</strong>
+            </a>
           </section>
 
           <section className="chapter" id="casos">
-            <div className="chapter-kicker">10 · Seis casos comparados</div>
+            <div className="chapter-kicker">11 · Casos comparados</div>
             <h2>El poder se comprende mejor siguiendo sus huellas</h2>
             <p className="chapter-intro">
-              Los casos no prueban leyes universales. Funcionan como ejercicios: identifican una
-              infraestructura, la información que produce, los comportamientos que premia y el tipo de
-              ceguera que puede generar.
+              Cada caso aplica la misma secuencia: infraestructura, información, conducta premiada,
+              ceguera producida y contrapeso ausente. Son ejercicios de comparación, no pruebas de leyes universales.
             </p>
+            <DepthDisclosure
+              label="Seis casos"
+              title="Abrir ejercicios históricos y contemporáneos"
+              description="Qin, Florencia, administración colonial, totalitarismo, recomendación algorítmica y gestión por métricas."
+            >
             <div className="case-grid">
               {cases.map((item, index) => (
                 <article key={item.title}>
@@ -1118,15 +1412,21 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            </DepthDisclosure>
           </section>
 
           <section className="chapter" id="autonomia">
-            <div className="chapter-kicker">11 · Aplicación defensiva</div>
-            <h2>Autonomía estratégica: pausa, preguntas y separación de papeles</h2>
+            <div className="chapter-kicker">12 · Aplicación defensiva</div>
+            <h2>Tres hábitos para recuperar capacidad de elección</h2>
             <p className="chapter-intro">
-              Las prácticas siguientes no buscan desestabilizar al otro. Reducen la impulsividad, hacen
-              visible el conflicto de intereses y protegen la capacidad de elegir.
+              La autonomía empieza antes de una gran decisión. Pausar, aclarar las reglas y separar
+              persona, papel e interés reduce la urgencia inducida y permite responder a la situación real.
             </p>
+            <div className="chapter-compass">
+              <p><strong>Pausa</strong>Regula la primera reacción antes de aceptar el marco ajeno.</p>
+              <p><strong>Pregunta</strong>Convierte reglas implícitas en criterios que pueden examinarse.</p>
+              <p><strong>Separa</strong>Distingue identidad, función, interés y conducta observable.</p>
+            </div>
             <div className="practice-grid">
               <article>
                 <span>Sun Tzu</span>
@@ -1169,16 +1469,24 @@ export default function Home() {
                 </p>
               </div>
             </div>
+            <a className="route-next" href="#contrapesos">
+              <span>Ruta práctica · siguiente</span>
+              <strong>Evaluar legitimidad y diseñar contrapesos →</strong>
+            </a>
           </section>
 
           <section className="chapter" id="contrapesos">
-            <div className="chapter-kicker">12 · Contrapoder, legitimidad y auditoría</div>
+            <div className="chapter-kicker">13 · Legitimidad y contrapoder</div>
             <h2>El criterio no es ausencia de poder, sino poder limitado y corregible</h2>
             <p className="chapter-intro">
-              Una sociedad sin influencia, normas ni autoridad no existe. La cuestión democrática es si
-              las personas afectadas pueden comprender, participar, disentir, organizarse, recurrir y
-              reparar. El contrapoder no destruye coordinación: impide que una sola perspectiva se vuelva irrevocable.
+              La autoridad legítima coordina sin hacerse irrevocable. Quien resulta afectado debe poder
+              conocer las reglas, participar, disentir, organizarse, recurrir y obtener reparación.
             </p>
+            <div className="chapter-compass">
+              <p><strong>Legítimo</strong>Mandato limitado, razón pública, evidencia y proporcionalidad.</p>
+              <p><strong>Corregible</strong>Participación, revisión independiente, reversibilidad y reparación.</p>
+              <p><strong>Abusivo</strong>Secreto, dependencia fabricada, castigo del disenso e irreversibilidad.</p>
+            </div>
             <div className="legitimacy-grid">
               {[
                 ["Legalidad", "La autoridad actúa dentro de competencias y normas públicas."],
@@ -1205,6 +1513,11 @@ export default function Home() {
                 <p>Secreto · arbitrariedad · dependencia · personalización opaca · castigo del disenso · irreversibilidad</p>
               </div>
             </div>
+            <DepthDisclosure
+              label="Auditorías"
+              title="Abrir listas de comprobación para mensajes, organizaciones e IA"
+              description="Preguntas operativas para detectar manipulación, captura, métricas ciegas y revisión humana ficticia."
+            >
             <h3 className="subsection-title">Diagnóstico de manipulación en cinco minutos</h3>
             <div className="audit-list">
               {[
@@ -1256,6 +1569,7 @@ export default function Home() {
                 </ul>
               </article>
             </div>
+            </DepthDisclosure>
             <div className="counterpower-map">
               <h3>Cinco familias de contrapoder</h3>
               <div>
@@ -1269,22 +1583,37 @@ export default function Home() {
           </section>
 
           <section className="chapter" id="glosario">
-            <div className="chapter-kicker">13 · Glosario operativo</div>
+            <div className="chapter-kicker">14 · Referencia</div>
             <h2>Conceptos para nombrar con precisión</h2>
             <p className="chapter-intro">
-              El vocabulario reduce dos errores: llamar manipulación a toda influencia y llamar
-              neutralidad a toda estructura. Las definiciones son breves puertas de entrada, no sustitutos de las obras.
+              Usa el glosario cuando una palabra resulte ambigua. Nombrar con precisión evita llamar
+              manipulación a toda influencia y neutralidad a toda estructura.
             </p>
+            <DepthDisclosure
+              label="Glosario"
+              title="Abrir definiciones operativas"
+              description="Conceptos de estrategia, sociología, psicología, administración y gobernanza algorítmica."
+            >
             <dl className="glossary-grid">
               {glossary.map(([term, definition]) => (
                 <div key={term}><dt>{term}</dt><dd>{definition}</dd></div>
               ))}
             </dl>
+            </DepthDisclosure>
           </section>
 
           <section className="chapter sources" id="fuentes">
-            <div className="chapter-kicker">14 · Fuentes y lecturas de ampliación</div>
-            <h2>Una bibliografía para continuar el mapa</h2>
+            <div className="chapter-kicker">15 · Fuentes y método</div>
+            <h2>Una bibliografía para verificar y continuar</h2>
+            <p className="chapter-intro">
+              Las afirmaciones históricas, filosóficas, psicológicas, jurídicas y tecnológicas no tienen
+              el mismo tipo de evidencia. La bibliografía permite volver a las obras y comprobar cada registro.
+            </p>
+            <DepthDisclosure
+              label="Bibliografía"
+              title="Abrir fuentes primarias y lecturas de ampliación"
+              description="Obras clásicas, teoría política, evidencia empírica, regulación y estándares de IA."
+            >
             <ol>
               {references.map((reference) => (
                 <li key={reference.label}>
@@ -1301,6 +1630,7 @@ export default function Home() {
               debatida. Las analogías entre estrategia militar, administración imperial y relaciones
               contemporáneas son heurísticas: no convierten ciudadanos, compañeros o familiares en adversarios.
             </div>
+            </DepthDisclosure>
           </section>
         </div>
       </div>
@@ -1309,6 +1639,7 @@ export default function Home() {
         <div>
           <strong>Los Manuales del Poder Real</strong>
           <p>Comprender el tablero para preservar la libertad de juicio.</p>
+          <small>Autor y editor · Angel A. Urbina · 2026</small>
         </div>
         <a href="#inicio">Volver arriba ↑</a>
       </footer>

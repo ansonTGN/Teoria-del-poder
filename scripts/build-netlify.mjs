@@ -17,9 +17,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const output = path.join(root, "netlify-dist");
 const publicDirectory = path.join(root, "public");
 const siteUrl = (process.env.URL || "https://manuales-poder-real.netlify.app").replace(/\/$/, "");
-const title = "Los Manuales del Poder Real | Ciencia, filosofía y práctica";
+const title = "Los Manuales del Poder Real | Guía clara, ciencia y práctica";
 const description =
-  "Manual crítico y práctico sobre Maquiavelo, Sun Tzu y Han Feizi, teoría de juegos, sociología, psicología, control social e inteligencia artificial.";
+  "Guía crítica y práctica para comprender el poder mediante seis palancas, Maquiavelo, Sun Tzu, Han Feizi, sociología, psicología e inteligencia artificial.";
 
 const vite = await createServer({
   appType: "custom",
@@ -47,6 +47,9 @@ const schema = {
   description,
   inLanguage: "es",
   dateModified: "2026-08-02",
+  author: { "@type": "Person", name: "Angel A. Urbina" },
+  copyrightHolder: { "@type": "Person", name: "Angel A. Urbina" },
+  copyrightYear: 2026,
   image: `${siteUrl}/og-image.jpg`,
   mainEntityOfPage: `${siteUrl}/`,
   about: ["Poder", "Teoría de juegos", "Filosofía política", "Psicología política", "Control social", "Inteligencia artificial"],
@@ -61,6 +64,8 @@ const html = `<!doctype html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${title}</title>
     <meta name="description" content="${description}">
+    <meta name="author" content="Angel A. Urbina">
+    <meta name="copyright" content="Angel A. Urbina, 2026">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#142b3d">
     <link rel="canonical" href="${siteUrl}/">
@@ -72,6 +77,7 @@ const html = `<!doctype html>
     <meta property="og:description" content="${description}">
     <meta property="og:url" content="${siteUrl}/">
     <meta property="og:image" content="${siteUrl}/og-image.jpg">
+    <meta property="article:author" content="Angel A. Urbina">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Los Manuales del Poder Real">
     <meta name="twitter:description" content="${description}">

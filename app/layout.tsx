@@ -13,9 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Los Manuales del Poder Real | Ciencia, filosofía y práctica",
+  title: "Los Manuales del Poder Real | Guía clara, ciencia y práctica",
   description:
-    "Manual crítico y práctico sobre Maquiavelo, Sun Tzu y Han Feizi, teoría de juegos, sociología, psicología, control social e inteligencia artificial.",
+    "Guía crítica y práctica para comprender el poder mediante seis palancas, Maquiavelo, Sun Tzu, Han Feizi, sociología, psicología e inteligencia artificial.",
+  authors: [{ name: "Angel A. Urbina" }],
+  creator: "Angel A. Urbina",
   keywords: [
     "poder",
     "control social",
