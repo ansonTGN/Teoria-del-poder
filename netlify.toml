@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "22.13.0"
   NPM_FLAGS = "--prefer-offline"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 [[headers]]
   for = "/*"
